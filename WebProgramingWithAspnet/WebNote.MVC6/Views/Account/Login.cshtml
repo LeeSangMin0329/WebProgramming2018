@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Sign-In";
+}
+
+@model WebNote.MVC6.ViewModel.LoginViewModel
+
+
+<h2>Sign In</h2>
+<br />
+
+<form class="form-horizontal" method="post" asp-controller="Account" asp-action="Login">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    <div class="form-group">
+        <label>User ID</label>
+        <input type="text" asp-for="UserId" class="form-control" placeholder="Write User ID" />
+        <span class="text-danger" asp-validation-for="UserId"></span>
+    </div>
+    <div class="form-group">
+        <label>User Password</label>
+        <input type="password" asp-for="UserPassword" class="form-control" placeholder="Write User Password" />
+        <span class="text-danger" asp-validation-for="UserPassword"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Login</button>
+    </div>
+</form>

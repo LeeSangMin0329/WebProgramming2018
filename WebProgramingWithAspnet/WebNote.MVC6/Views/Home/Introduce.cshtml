@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Introduce";
+}
+
+<h1>Introduce</h1>
+
+<br />
+<div class="row">
+    <div style="position:relative;height:0;padding-bottom:56.21%"><iframe src="https://www.youtube.com/embed/ybVlWhdedZE?ecver=2" style="position:absolute;width:100%;height:100%;left:0" width="641" height="360" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    <p>
+        <h3 style="color:red">Flash가 없어진 것만으로 완벽하다.</h3>
+        HTML5의 개선점.
+    </p>
+    <p>
+        기존의 html은 미디어의 재생이나 각종 추가 기능을 외부 플러그인에 의존하는 경향이 심했고,<br />
+        이는 필연적으로 보안이나 기타 구조상의 취약점을 만들 수 밖에 없었다.<br />
+        반면 html5에서는 자체 코드상에서 비디오나 오디오는 물론 웹 어플리케이션 동작, 문서 편집과 같은 API가 추가 되었다.<br />
+        html 문법 자체도 많이 간결해졌다고 하는데 사실 이전 버전의 html을 사용하지 않아서 잘 모르겠다.
+    </p>
+
+</div>
+<HR width="100%" align="middle" style="color:black; background-color:black; height:1px; border:none" />
+<br />
+<div class="row">
+    <h3>사용한 태그.</h3><br />
+    <p>
+        <h4 style="color:cornflowerblue">&lt;a href="https://go.microsoft.com/fwlink/?LinkID=398939"&gt;Bootstrap&lt;/a&gt;</h4>
+        a는 페이지 리다이렉션이나 특정 url로 이동할 때 쓴다. href는 url을 Bootstrap이라는 문자에 하이퍼링크하는 명령이다.<br />
+        <br />
+        <h4 style="color:cornflowerblue">&lt;a class="btn btn-default" asp-controller="Note" asp-action="Index"&gt;Cancel&lt;/a;&gt;</h4>
+        Asp.net Core 식 리다이렉션 명령이다. 부트스트랩에 default로 정의된 양식의 버튼이며, NoteController.Index로 리다이렉션한다.
+        <br /> <br />
+        <h4 style="color:cornflowerblue">&lt;input type="text" class="form-control" asp-for="Name" placeholder="Write User Name" /&gt;</h4>
+        입력 필드, 입력 받을 값은 text, submit 됬을 경우 미리 정의된 Model 클래스 Name의 변수에 대입된다. DB에 전달할 JSON파일로 만들기 위함.<br />
+        placeholder는 필드가 공백일 경우 표시되는 문자열.
+        <br /><br />
+        <h4 style="color:cornflowerblue">&lt;img src="~/images/test1.jpg" alt="ASP.NET" class="img-responsive center-block" /&gt; </h4>
+        이미지 표기 src는 좌표나 url이 들어간다. alt는 이미지가 오류났을 경우 대체 이미지. 부트스트랩 반응형 이미지 가운데 정렬을 적용중.<br /><br />
+        <h4 style="color:cornflowerblue">&lt;iframe src="https://www.youtube.com/embed/ybVlWhdedZE?ecver=2" style="position ......</h4>
+        iframe : html문서를 특정 프레임 안에 통째로 불러오는 명령어다. 유튜브 영상 참조는 아예 통째로 가져오는 방식이다.<br /><br />
+        <h4 style="color:cornflowerblue">&lt;textarea class="form-control editor" rows="20" asp-for="Contents" placeholder="Contexts"&gt;&lt;/textarea&gt;</h4>
+        <h4 style="color:cornflowerblue">&lt;span class="text-danger" asp-validation-for="Contents"&gt;&lt;/span&gt;</h4>
+        textarea : 여러줄 입력 가능한 필드를 만든다.<br />
+        asp-for="Contents" : Model.Contexts에 submit되는 경우 전달.<br />
+        span class="text-danger": 특정 상황에 경고문구를 출력한다. text-danger색(빨강)으로 출력함.<br />
+        asp-validation-for="Contents" : 필드가 공백이거나 하는 Contents가 invalid한 경우 출력한다.
+    </p>
+</div>
