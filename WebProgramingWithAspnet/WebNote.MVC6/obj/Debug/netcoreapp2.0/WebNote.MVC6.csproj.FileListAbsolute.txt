@@ -9,3 +9,14 @@ D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNo
 D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.AssemblyInfo.cs
 D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.dll
 D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.pdb
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\bin\Debug\netcoreapp2.0\WebNote.MVC6.deps.json
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\bin\Debug\netcoreapp2.0\WebNote.MVC6.runtimeconfig.json
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\bin\Debug\netcoreapp2.0\WebNote.MVC6.runtimeconfig.dev.json
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\bin\Debug\netcoreapp2.0\WebNote.MVC6.dll
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\bin\Debug\netcoreapp2.0\WebNote.MVC6.pdb
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.csprojResolveAssemblyReference.cache
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.csproj.CoreCompileInputs.cache
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.AssemblyInfoInputs.cache
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.AssemblyInfo.cs
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.dll
+D:\GitReporsitory\web1\WebProgramingWithAspnet\WebNote.MVC6\obj\Debug\netcoreapp2.0\WebNote.MVC6.pdb

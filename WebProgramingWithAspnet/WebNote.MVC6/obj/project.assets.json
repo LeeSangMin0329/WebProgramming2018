@@ -12545,11 +12545,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WebProject\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
+      "projectUniqueName": "D:\\GitReporsitory\\web1\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
       "projectName": "WebNote.MVC6",
-      "projectPath": "D:\\WebProject\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
+      "projectPath": "D:\\GitReporsitory\\web1\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
       "packagesPath": "C:\\Users\\YOURI\\.nuget\\packages\\",
-      "outputPath": "D:\\WebProject\\WebProgramingWithAspnet\\WebNote.MVC6\\obj\\",
+      "outputPath": "D:\\GitReporsitory\\web1\\WebProgramingWithAspnet\\WebNote.MVC6\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
