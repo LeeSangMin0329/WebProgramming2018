@@ -28,6 +28,8 @@ namespace WebNote.MVC6.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
+            return RedirectToAction("Error", "Account");
+
             // ID, PW authentication
             if (ModelState.IsValid)
             {
@@ -79,6 +81,8 @@ namespace WebNote.MVC6.Controllers
         [HttpPost]
         public IActionResult Register(User model)
         {
+            return RedirectToAction("Error", "Account");
+
             if (ModelState.IsValid)
             {
                 using (var db = new WebNoteDbContext())     // using keywork : Disposiable work [ ex) try ~ finally { Dispose() } ]
@@ -90,6 +94,11 @@ namespace WebNote.MVC6.Controllers
             }
 
             return View(model);
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

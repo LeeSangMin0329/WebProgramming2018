@@ -9,3 +9,14 @@ D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\Web
 D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.AssemblyInfo.cs
 D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.dll
 D:\WebProject\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.pdb
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\bin\Release\netcoreapp2.0\WebNote.MVC6.deps.json
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\bin\Release\netcoreapp2.0\WebNote.MVC6.runtimeconfig.json
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\bin\Release\netcoreapp2.0\WebNote.MVC6.runtimeconfig.dev.json
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\bin\Release\netcoreapp2.0\WebNote.MVC6.dll
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\bin\Release\netcoreapp2.0\WebNote.MVC6.pdb
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.csprojResolveAssemblyReference.cache
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.csproj.CoreCompileInputs.cache
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.AssemblyInfoInputs.cache
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.AssemblyInfo.cs
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.dll
+C:\Users\Youri\Desktop\WebProgramingWithAspnet\WebNote.MVC6\obj\Release\netcoreapp2.0\WebNote.MVC6.pdb

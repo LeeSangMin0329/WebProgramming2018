@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Project1</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Web2018</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -37,6 +37,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Introduce">Intro</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Calculator">Calculator</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ShootingGame">Game</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -70,15 +71,14 @@
         <script src="~/lib/Trumbowyg/dist/trumbowyg.min.js"></script>
         <script src="~/lib/Trumbowyg/dist/plugins/upload/trumbowyg.upload.js"></script>
         <script src="~/lib/Trumbowyg/dist/langs/ko.min.js"></script>
+        
         <script src="~/js/site.js" asp-append-version="true"></script>
-
         <!-- SCM Music Player http://scmplayer.co -->
         <script type="text/javascript" src="http://scmplayer.co/script.js"
                 data-config="{'skin':'skins/simpleBlack/skin.css','volume':50,'autoplay':true,'shuffle':false,'repeat':1,'placement':'bottom','showplaylist':false,
                 'playlist':[{'title':'Bach - Air on the G String','url':'https://youtu.be/drvp_w4J-DQ'}]}">
         </script>
         <!-- SCM Music Player script end -->
-
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -94,7 +94,12 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
-
+        <!-- SCM Music Player http://scmplayer.co -->
+        <script type="text/javascript" src="http://scmplayer.co/script.js"
+                data-config="{'skin':'skins/simpleBlack/skin.css','volume':50,'autoplay':true,'shuffle':false,'repeat':1,'placement':'bottom','showplaylist':false,
+                'playlist':[{'title':'Bach - Air on the G String','url':'https://youtu.be/drvp_w4J-DQ'}]}">
+        </script>
+        <!-- SCM Music Player script end -->
     </environment>
 
     @RenderSection("Scripts", required: false)

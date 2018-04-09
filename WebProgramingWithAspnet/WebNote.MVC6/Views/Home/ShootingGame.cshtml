@@ -1,0 +1,487 @@
+﻿@{
+    ViewData["Title"] = "Shooting Game";
+}
+
+<canvas id="Canvas" width="500" height="800"></canvas>
+<div id="content"></div>
+<h3>Key : (W, A, S, D) or Arrow key</h3>
+
+<script>
+    var Common = (function () {
+        function Common() {
+        }
+        Common.DrawContext = function (img, xPos, yPos, w, h) {
+            Common.Context.drawImage(img, xPos, yPos, w, h);
+        };
+        Common.DrawText = function (str, xPos, yPos) {
+            Common.Context.fillStyle = "white";
+            Common.Context.textAlign = 'left';
+            Common.Context.font = '20pt Arial';
+            Common.Context.fillText(str, xPos, yPos);
+        };
+        Common.DrawMenu = function () {
+            Common.Context.fillStyle = "white";
+            Common.Context.textAlign = 'center';
+            Common.Context.font = '30pt Arial';
+            Common.Context.fillText("Press Enter Key to Start.", Common.ScreenWidth / 2, Common.ScreenHeight / 2);
+        };
+        Common.Fps = 60;
+        Common.PercentageCreateEnemy = 30;
+        Common.ScreenHeight = 800;
+        Common.ScreenWidth = 500;
+        Common.PlayerMoveSpeed = 8;
+        Common.BulletSpeed = 8;
+        Common.BulletDamage = 40;
+        Common.PoolingEnemyCount = 5;
+        Common.PoolingBulletCount = 10;
+        Common.KeyPressOn = {};
+        Common.Score = 0;
+        Common.Volume = 0.4;
+        return Common;
+    }());
+    var BackGround = (function () {
+        function BackGround() {
+            this._backImgYPos1 = 0;
+            this._backImgYPos2 = -Common.ScreenHeight;
+            this._scrollSpeed = 10;
+            this._backImg = new Image();
+            this._bgSound = new Audio("../sounds/bg.mp3");
+            this._backImg.src = "../images/ShootingGame/spaceBg.jpg";
+            this._bgSound.volume = Common.Volume;
+            this._bgSound.loop = true;
+            this._bgSound.play();
+        }
+        BackGround.prototype.BackScroll = function () {
+            Common.DrawContext(this._backImg, 0, this._backImgYPos1, Common.ScreenWidth, Common.ScreenHeight);
+            Common.DrawContext(this._backImg, 0, this._backImgYPos2, Common.ScreenWidth, Common.ScreenHeight);
+            this._backImgYPos1 += this._scrollSpeed;
+            this._backImgYPos2 += this._scrollSpeed;
+            if (this._backImgYPos1 >= Common.ScreenHeight) {
+                this._backImgYPos1 = -Common.ScreenHeight;
+                this._backImgYPos2 = 0;
+            }
+            if (this._backImgYPos2 >= Common.ScreenHeight) {
+                this._backImgYPos2 = -Common.ScreenHeight;
+                this._backImgYPos1 = 0;
+            }
+        };
+        return BackGround;
+    }());
+    var Explosion1 = (function () {
+        function Explosion1() {
+            this._curIndex = 0;
+            this._count = 0;
+            this._height = 150;
+            this._width = 150;
+            this._sound = new Audio("../sounds/exp01.ogg");
+            this._aniLength = 5;
+            this._img = new Array(this._aniLength);
+            for (var i = 0; i < this._img.length; i++) {
+                this._img[i] = new Image();
+                this._img[i].src = "../images/ShootingGame/exp00" + i + ".png";
+            }
+            this._isEnable = false;
+            this._sound.volume = Common.Volume;
+        }
+        Explosion1.prototype.On = function () {
+            this._isEnable = true;
+            this._sound.currentTime = 0;
+            this._sound.play();
+        };
+        Explosion1.prototype.IsEnd = function () {
+            if (this._isEnable) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        };
+        Explosion1.prototype.Draw = function (xPos, yPos) {
+            if (this._isEnable) {
+                this._count++;
+                if (this._count >= Common.Fps / this._aniLength) {
+                    this._count = 0;
+                    this._curIndex++;
+                    if (this._curIndex >= this._aniLength) {
+                        this._curIndex = 0;
+                        this._isEnable = false;
+                    }
+                }
+                Common.DrawContext(this._img[this._curIndex], xPos, yPos, this._width, this._height);
+            }
+        };
+        return Explosion1;
+    }());
+    var EnemyHP = 120;
+    var Enemy = (function () {
+        function Enemy() {
+            this._imgLangth = 8;
+            this._imgIndex = 0;
+            this._moveSpeed = 10;
+            this._isDead = true;
+            this._eff = new Explosion1();
+            this._enemyImg = new Array(this._imgLangth);
+            for (var i = 0; i < this._enemyImg.length; i++) {
+                this._enemyImg[i] = new Image();
+                this._enemyImg[i].src = "../images/ShootingGame/무냐" + i + ".png";
+            }
+            this._height = 100;
+            this._width = 100;
+            this._isDead = true;
+            var randomNum = Math.floor(Math.random() * 9);
+            this._xPos = Common.ScreenWidth * 0.1 * randomNum;
+            this._yPos = -50;
+            this._count = 0;
+            this._hp = EnemyHP;
+        }
+        Enemy.prototype.IsEnable = function () {
+            return (this._isDead && this._eff.IsEnd());
+        };
+        Enemy.prototype.IsDead = function () {
+            return this._isDead;
+        };
+        Enemy.prototype.DoDead = function () {
+            this._isDead = true;
+        };
+        Enemy.prototype.XPos = function () { return this._xPos; };
+        Enemy.prototype.YPos = function () { return this._yPos; };
+        Enemy.prototype.Height = function () { return this._height; };
+        Enemy.prototype.Width = function () { return this._width; };
+        Enemy.prototype.Damage = function (amount) {
+            this._hp -= amount;
+            if (this._hp <= 0) {
+                this._isDead = true;
+                this._eff.On();
+                return true;
+            }
+            return false;
+        };
+        Enemy.prototype.Init = function () {
+            this._isDead = false;
+            var randomNum = Math.floor(Math.random() * 9);
+            this._xPos = Common.ScreenWidth * 0.1 * randomNum;
+            this._yPos = -50;
+            this._count = 0;
+            this._hp = EnemyHP;
+        };
+        Enemy.prototype.MoveEnemy = function () {
+            if (!this.IsEnable()) {
+                this._yPos += this._moveSpeed;
+                if (this._yPos >= Common.ScreenHeight + 50) {
+                    this._isDead = true;
+                }
+            }
+        };
+        Enemy.prototype.Draw = function () {
+            if (!this._isDead) {
+                this._count++;
+                if (this._count >= Common.Fps / this._imgLangth) {
+                    this._count = 0;
+                    this._imgIndex++;
+                    if (this._imgIndex >= this._imgLangth) {
+                        this._imgIndex = 0;
+                    }
+                }
+                Common.DrawContext(this._enemyImg[this._imgIndex], this._xPos, this._yPos, this._width, this._height);
+            }
+            else if (!this._eff.IsEnd()) {
+                this._eff.Draw(this._xPos, this._yPos);
+            }
+        };
+        return Enemy;
+    }());
+    var Bullet = (function () {
+        function Bullet() {
+            this._moveSpeed = Common.BulletSpeed;
+            this.IsDead = true;
+            this._img = new Image();
+            this._img.src = "../images/ShootingGame/bullet.png";
+            this._height = 20;
+            this._width = 20;
+        }
+        Bullet.prototype.XPos = function () { return this._xPos; };
+        Bullet.prototype.YPos = function () { return this._yPos; };
+        Bullet.prototype.Height = function () { return this._height; };
+        Bullet.prototype.Width = function () { return this._width; };
+        Bullet.prototype.Init = function (xPos, yPos) {
+            this._xPos = xPos;
+            this._yPos = yPos;
+            this.IsDead = false;
+        };
+        Bullet.prototype.MoveBullet = function () {
+            if (!this.IsDead) {
+                this._yPos -= this._moveSpeed;
+                if (this._yPos <= -40) {
+                    this.IsDead = true;
+                }
+            }
+        };
+        Bullet.prototype.Draw = function () {
+            if (!this.IsDead) {
+                Common.DrawContext(this._img, this._xPos, this._yPos, this._width, this._height);
+            }
+        };
+        return Bullet;
+    }());
+    var Player = (function () {
+        function Player() {
+            this._imgLangth = 4;
+            this._imgIndex = 0;
+            this._eff = new Explosion1();
+            this._shotSound = new Audio("../sounds/shot.mp3");
+            this._img = new Array(this._imgLangth);
+            for (var i = 0; i < this._img.length; i++) {
+                this._img[i] = new Image();
+                this._img[i].src = "../images/ShootingGame/player0" + i + ".png";
+            }
+            this.Init();
+            this._bulletList = new Array();
+            for (var i = 0; i < Common.PoolingBulletCount; i++) {
+                this._bulletList.push(new Bullet());
+            }
+            this._shotSound.volume = Common.Volume;
+        }
+        Player.prototype.XPos = function () { return this._xPos; };
+        Player.prototype.YPos = function () { return this._yPos; };
+        Player.prototype.Height = function () { return this._height; };
+        Player.prototype.Width = function () { return this._width; };
+        Player.prototype.BulletList = function () { return this._bulletList; };
+        Player.prototype.Init = function () {
+            this._xPos = Common.ScreenWidth / 2;
+            this._yPos = Common.ScreenHeight * 0.8;
+            this._count = 0;
+            this._bCount = 0;
+            this._height = 100;
+            this._width = 100;
+            this.IsDead = false;
+        };
+        Player.prototype.Draw = function () {
+            for (var i = 0; i < this._bulletList.length; i++) {
+                this._bulletList[i].Draw();
+            }
+            if (!this.IsDead) {
+                this._count++;
+                if (this._count >= Common.Fps / this._imgLangth) {
+                    this._count = 0;
+                    this._imgIndex++;
+                    if (this._imgIndex >= this._imgLangth) {
+                        this._imgIndex = 0;
+                    }
+                }
+                Common.DrawContext(this._img[this._imgIndex], this._xPos, this._yPos, this._width, this._height);
+            }
+            else if (!this._eff.IsEnd()) {
+                this._eff.Draw(this._xPos, this._yPos);
+            }
+        };
+        Player.prototype.Update = function () {
+            if (!this.IsDead) {
+                this.CalcKeyInput();
+                this._bCount++;
+                if (this._bCount >= Common.Fps / this._imgLangth) {
+                    this._bCount = 0;
+                    for (var i = 0; i < this._bulletList.length; i++) {
+                        if (this._bulletList[i].IsDead) {
+                            this._bulletList[i].Init(this._xPos + this._img[0].height / 2, this._yPos + this._img[0].width / 2);
+                            this._shotSound.currentTime = 0;
+                            this._shotSound.play();
+                            break;
+                        }
+                    }
+                }
+            }
+            for (var i = 0; i < this._bulletList.length; i++) {
+                this._bulletList[i].MoveBullet();
+            }
+        };
+        Player.prototype.CalcKeyInput = function () {
+            if (Common.KeyPressOn["38"] && this._yPos >= -this._height / 2)
+                this._yPos -= Common.PlayerMoveSpeed;
+            if (Common.KeyPressOn["40"] && this._yPos <= Common.Canvas.height - this._height / 2)
+                this._yPos += Common.PlayerMoveSpeed;
+            if (Common.KeyPressOn["37"] && this._xPos >= -this._width / 2)
+                this._xPos -= Common.PlayerMoveSpeed;
+            if (Common.KeyPressOn["39"] && this._xPos <= Common.Canvas.width - this._width / 2)
+                this._xPos += Common.PlayerMoveSpeed;
+        };
+        Player.prototype.GameOver = function () {
+            this.IsDead = true;
+            this._eff.On();
+        };
+        return Player;
+    }());
+    var Collision = (function () {
+        function Collision() {
+            this._hit = new Audio("../sounds/hit.mp3");
+            this._hit.volume = Common.Volume;
+        }
+        Collision.prototype.CheckPlayerToEnemys = function (player, enemys) {
+            for (var i = 0; i < enemys.length; i++) {
+                if (enemys[i].IsDead() || player.IsDead) {
+                    continue;
+                }
+                var check = player.XPos() > enemys[i].XPos() - enemys[i].Height() / 2 &&
+                    player.XPos() < enemys[i].XPos() + enemys[i].Height() / 2 &&
+                    player.YPos() > enemys[i].YPos() - enemys[i].Width() / 2 &&
+                    player.YPos() < enemys[i].YPos() + enemys[i].Width() / 2;
+                if (check) {
+                    player.GameOver();
+                    return false;
+                }
+            }
+            return true;
+        };
+        Collision.prototype.CheckBulletToEnemys = function (bullets, enemys) {
+            for (var j = 0; j < bullets.length; j++) {
+                for (var i = 0; i < enemys.length; i++) {
+                    if (bullets[j].IsDead || enemys[i].IsDead()) {
+                        continue;
+                    }
+                    var check = bullets[j].XPos() + bullets[j].Width() / 2 > enemys[i].XPos() &&
+                        bullets[j].XPos() + bullets[j].Width() / 2 < enemys[i].XPos() + enemys[i].Width() &&
+                        bullets[j].YPos() + bullets[j].Height() / 2 > enemys[i].YPos() &&
+                        bullets[j].YPos() + bullets[j].Height() / 2 < enemys[i].YPos() + enemys[i].Height();
+                    if (check) {
+                        this._hit.currentTime = 0;
+                        this._hit.play();
+                        bullets[j].IsDead = true;
+                        if (enemys[i].Damage(Common.BulletDamage)) {
+                            Common.Score += 10;
+                        }
+                    }
+                }
+            }
+        };
+        return Collision;
+    }());
+    var GameManager = (function () {
+        function GameManager() {
+            this._MenuPopUp = false;
+            this._enemyList = new Array();
+            for (var i = 0; i < Common.PoolingEnemyCount; i++) {
+                this._enemyList.push(new Enemy());
+            }
+            this._player = new Player();
+            this._collsion = new Collision();
+        }
+        GameManager.prototype.EnemyMake = function () {
+            this._randomNum = Math.floor(Math.random() * Common.PercentageCreateEnemy);
+            if (this._randomNum != 10) {
+                return;
+            }
+            for (var i = 0; i < this._enemyList.length; i++) {
+                if (this._enemyList[i].IsEnable()) {
+                    this._enemyList[i].Init();
+                    break;
+                }
+            }
+        };
+        GameManager.prototype.EnemyUpdate = function () {
+            for (var i = 0; i < this._enemyList.length; i++) {
+                if (!this._enemyList[i].IsEnable()) {
+                    this._enemyList[i].MoveEnemy();
+                }
+            }
+        };
+        GameManager.prototype.EnemyDraw = function () {
+            for (var i = 0; i < this._enemyList.length; i++) {
+                if (!this._enemyList[i].IsEnable()) {
+                    this._enemyList[i].Draw();
+                }
+            }
+        };
+        GameManager.prototype.IsPressEnterKey = function () {
+            return Common.KeyPressOn["13"];
+        };
+        GameManager.prototype.MainUpdate = function () {
+            this._player.Update();
+            if (!this._MenuPopUp) {
+                this.EnemyMake();
+            }
+            this.EnemyUpdate();
+            if (!this._collsion.CheckPlayerToEnemys(this._player, this._enemyList)) {
+                this._MenuPopUp = true;
+                for (var i = 0; i < this._enemyList.length; i++) {
+                    this._enemyList[i].DoDead();
+                }
+            }
+            this._collsion.CheckBulletToEnemys(this._player.BulletList(), this._enemyList);
+            if (this._MenuPopUp) {
+                if (this.IsPressEnterKey()) {
+                    this._MenuPopUp = false;
+                    this._player.Init();
+                    Common.Score = 0;
+                }
+            }
+        };
+        GameManager.prototype.MainDraw = function () {
+            this.EnemyDraw();
+            this._player.Draw();
+            if (this._MenuPopUp) {
+                Common.DrawMenu();
+            }
+        };
+        return GameManager;
+    }());
+    var gameManager = new GameManager();
+    var backGround = new BackGround();
+    function GameLoop() {
+        gameManager.MainUpdate();
+        backGround.BackScroll();
+        gameManager.MainDraw();
+        Common.DrawText("SCORE : " + Common.Score, 10, 30);
+        Common.ViewContext.drawImage(Common.Canvas, 0, 0);
+    }
+    window.addEventListener('load', function () {
+        Common.Canvas = document.createElement("canvas");
+        Common.Canvas.width = Common.ScreenWidth;
+        Common.Canvas.height = Common.ScreenHeight;
+        Common.Context = Common.Canvas.getContext('2d');
+        Common.ViewCanvas = document.getElementById("Canvas");
+        Common.ViewContext = Common.ViewCanvas.getContext("2d");
+        window.addEventListener('keydown', OnKeyDown);
+        window.addEventListener('keyup', OnKeyUp);
+        setInterval(GameLoop, 1000 / Common.Fps);
+    });
+    function OnKeyDown(event) {
+        var keyValue;
+        var skipEvent = false;
+        keyValue = event.keyCode;
+        if (keyValue == "87") {
+            keyValue = "38";
+            skipEvent = true;
+        }
+        else if (keyValue == "83") {
+            keyValue = "40";
+            skipEvent = true;
+        }
+        else if (keyValue == "65") {
+            keyValue = "37";
+            skipEvent = true;
+        }
+        else if (keyValue == "68") {
+            keyValue = "39";
+            skipEvent = true;
+        }
+        if (skipEvent) {
+            window.event.preventDefault();
+        }
+        Common.KeyPressOn[keyValue] = true;
+    }
+    function OnKeyUp(event) {
+        var keyValue;
+        keyValue = event.keyCode;
+        window.event.preventDefault();
+        if (keyValue == "87")
+            keyValue = "38";
+        else if (keyValue == "83")
+            keyValue = "40";
+        else if (keyValue == "65")
+            keyValue = "37";
+        else if (keyValue == "68")
+            keyValue = "39";
+        Common.KeyPressOn[keyValue] = false;
+    }
+</script>
+
+    

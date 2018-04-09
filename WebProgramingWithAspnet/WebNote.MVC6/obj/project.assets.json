@@ -12539,23 +12539,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\YOURI\\.nuget\\packages\\": {},
+    "C:\\Users\\Youri\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitReporsitory\\web1\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
+      "projectUniqueName": "C:\\Users\\Youri\\Desktop\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
       "projectName": "WebNote.MVC6",
-      "projectPath": "D:\\GitReporsitory\\web1\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
-      "packagesPath": "C:\\Users\\YOURI\\.nuget\\packages\\",
-      "outputPath": "D:\\GitReporsitory\\web1\\WebProgramingWithAspnet\\WebNote.MVC6\\obj\\",
+      "projectPath": "C:\\Users\\Youri\\Desktop\\WebProgramingWithAspnet\\WebNote.MVC6\\WebNote.MVC6.csproj",
+      "packagesPath": "C:\\Users\\Youri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Youri\\Desktop\\WebProgramingWithAspnet\\WebNote.MVC6\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\YOURI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Youri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

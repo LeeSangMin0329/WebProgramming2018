@@ -44,5 +44,10 @@ namespace WebNote.MVC6.Controllers
         {
             return View();
         }
+
+        public IActionResult ShootingGame()
+        {
+            return View();
+        }
     }
 }
